@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-
   function updateDashboard(amount, category, type) {
     const totalIncomeElem = document.getElementById('total-income');
     const totalExpenseElem = document.getElementById('total-expense');
@@ -74,19 +73,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  document.getElementById("loginForm").addEventListener("submit", (e) => {
-    e.preventDefault();
+  document.getElementById('exportPDF').addEventListener('click', function() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    doc.setFontSize(12);
+    doc.text("Expenses Report", 10, 10);
+    let y = 20;
 
-    if (username && password) {
-      alert(`Welcome, ${username}!`);
-    } else {
-      alert("Please fill in all fields");
-    }
+    const expensesListItems = document.querySelectorAll('#expensesList li');
+    expensesListItems.forEach((item) => {
+      doc.text(item.textContent, 10, y);
+      y += 10;
+    });
+
+    doc.save('expenses-report.pdf');
   });
-
 });
-
   
