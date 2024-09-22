@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+  const savingsGoal = 500.00; 
+  const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+  
+  
   function updateDashboard(amount, category, type) {
     const totalIncomeElem = document.getElementById('total-income');
     const totalExpenseElem = document.getElementById('total-expense');
@@ -43,10 +47,14 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
 
       expensesList.appendChild(listItem);
+      
+      transactions.push({ type, description, amount, category, date });
+      localStorage.setItem('transactions', JSON.stringify(transactions));
     } else {
       console.error('Expenses list element not found.');
     }
   }
+
 
   const transactionForm = document.getElementById('transactionForm');
   if (transactionForm) {
@@ -89,5 +97,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     doc.save('expenses-report.pdf');
   });
+
+  const currentSavingsElem = document.getElementById('current-savings');
+  const progressElem = document.getElementById('progress');
+  const totalSavings = transactions.reduce((total, transaction) => {
+    if (transaction.type === 'income') {
+      return total + transaction.amount;
+    }
+    return total;
+  }, 0);
+
+  if (currentSavingsElem && progressElem) {
+    currentSavingsElem.textContent = `Current Savings: $${totalSavings.toFixed(2)}`;
+    const progress = (totalSavings / savingsGoal) * 100;
+    progressElem.textContent = `Progress: ${progress.toFixed(2)}%`;
+  }
 });
+    
+
+     
   
