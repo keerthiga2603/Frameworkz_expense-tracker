@@ -2,6 +2,8 @@
 
 SpendWise is a user-friendly expense tracking web application built using Bootstrap. It allows users to manage their finances by recording income and expenses,and set their saving goals and allows to view progress, visualizing them in a dashboard, and categorizing their transactions effectively. you can even export your expense list as pdf.
 
+**EXTRACT THE ZIP FILE ATTACHED TO EXCLORE THE "SPENDWISE" -The Expense Tracker**
+
 ## Features
 
 -Home Page: Overview of the application and its features.
